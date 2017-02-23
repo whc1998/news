@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         toptv = (TextView) findViewById(R.id.vp_text);
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(android.R.drawable.alert_light_frame);
         DrawerLayout drawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,0, 0);
         toggle.setDrawerIndicatorEnabled(true);
