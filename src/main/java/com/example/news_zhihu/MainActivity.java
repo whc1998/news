@@ -1,7 +1,12 @@
 package com.example.news_zhihu;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -9,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -128,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
     @Override
     public boolean handleMessage(Message message) {
+        //listview
         MyAdapter adapter = new MyAdapter(MainActivity.this, list_title, picture,
                 R.layout.maincontent_list_style, R.id.tv_title, R.id.iv_image);
         maincontent_listview.setAdapter(adapter);
@@ -143,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
             }
         });
 
+        //viewpager
         for (int i = 0; i < top_picture.size(); i++) {
             ImageView imageView = new ImageView(MainActivity.this);
             imageView.setImageBitmap(top_picture.get(i));
@@ -170,6 +178,26 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
                 toptv.setText(top_title.get(position));
             }
         });
+
+        //notification
+        NotificationManager manager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(MainActivity.this);
+        long[] vibrate={0,200,100,200};
+        builder.setVibrate(vibrate);
+        builder.setSmallIcon(R.drawable.picture2);
+        builder.setContentTitle("装逼日报");
+        builder.setContentText(top_title.get(0));
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.picture2);
+        builder.setLargeIcon(bitmap);
+        builder.setAutoCancel(false);
+        Intent intent=new Intent(MainActivity.this,Detailednew.class);
+        String url1 = "http://daily.zhihu.com/story/";
+        String urlpath = url1 + toppictureid.get(0);
+        intent.putExtra("Path",urlpath);
+        PendingIntent pendingIntent=PendingIntent.getActivity(MainActivity.this,1,intent,PendingIntent.FLAG_ONE_SHOT);
+        builder.setContentIntent(pendingIntent);
+        Notification notification=builder.build();
+        manager.notify(1,notification);
         return false;
     }
 

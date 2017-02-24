@@ -1,6 +1,7 @@
 package com.example.news_zhihu;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebResourceRequest;
@@ -42,5 +43,9 @@ public class Detailednew extends Activity {
                 return super.shouldOverrideUrlLoading(view, request);
             }
         });
+
+        NotificationManager manager= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(1);
+
     }
 }
