@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         maincontent_listview = (ListView) findViewById(R.id.maincontent_list);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         toptv = (TextView) findViewById(R.id.vp_text);
-
+        //toolbar
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         DrawerLayout drawerLayout= (DrawerLayout) findViewById(R.id.activity_main);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,0, 0);
